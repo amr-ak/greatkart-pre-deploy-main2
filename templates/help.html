@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>المساعدة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            direction: rtl;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .faq {
+            margin-bottom: 10px;
+        }
+
+        .faq button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .faq button:hover {
+            background-color: #0056b3;
+        }
+
+        .panel {
+            display: none;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+    <script>
+        function toggleFAQ(index) {
+            let panel = document.getElementsByClassName("panel")[index];
+            panel.style.display = panel.style.display === "block" ? "none" : "block";
+        }
+
+        function filterFAQs() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let faqs = document.getElementsByClassName('faq');
+
+            for (let i = 0; i < faqs.length; i++) {
+                let question = faqs[i].getElementsByTagName('button')[0].innerText.toLowerCase();
+                if (question.includes(input)) {
+                    faqs[i].style.display = 'block';
+                } else {
+                    faqs[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>💡 المساعدة</h1>
+
+    <h3>🔎 البحث في الأسئلة الشائعة:</h3>
+    <input type="text" id="searchInput" placeholder="ابحث عن استفسارك..." onkeyup="filterFAQs()">
+
+    <h3>❓ الأسئلة الشائعة</h3>
+    {% for faq in faqs %}
+    <div class="faq">
+        <button onclick="toggleFAQ({{ forloop.counter0 }})">{{ faq.question }}</button>
+        <div class="panel">
+            <p>{{ faq.answer }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <h3>📞 التواصل معنا</h3>
+    <p>☎️ رقم الهاتف: +20123456789</p>
+    <p>📧 البريد الإلكتروني: support@yourwebsite.com</p>
+
+    <a href="/support-ticket">📩 أرسل طلب دعم</a>
+
+</body>
+</html>

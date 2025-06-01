@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إرسال طلب الدعم</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+        }
+        input, textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📩 إرسال طلب دعم</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="اسمك الكامل" name="name" required>
+        <input type="email" placeholder="البريد الإلكتروني" name="email" required>
+        <textarea placeholder="وصف المشكلة" name="message" rows="5" required></textarea>
+        <button type="submit">إرسال الطلب</button>
+    </form>
+
+</body>
+</html>

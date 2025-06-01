@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>إتمام الطلب</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.as_p }} <!-- عرض الفورم بشكل تلقائي -->
+            
+            <div class="form-group">
+                <label for="total">الإجمالي:</label>
+                <input type="text" name="total" value="{{ grand_total }}" class="form-control" readonly>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">إتمام الطلب</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Analytics Dashboard
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/analytics.css' %}">
+{% endblock %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/analytics.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>📊 Analytics Dashboard</h2>
+    <hr>
+
+    <h4>🔥 Top Interacted Products</h4>
+    <ul>
+        {% for item in top_products %}
+            <li>{{ item.product__product_name }} — {{ item.total }} interactions</li>
+        {% endfor %}
+    </ul>
+
+    <h4>🧠 Activity Types Summary</h4>
+    <ul>
+        {% for item in activity_counts %}
+            <li>{{ item.activity_type }} — {{ item.count }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

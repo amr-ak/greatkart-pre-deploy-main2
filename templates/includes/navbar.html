@@ -1,0 +1,94 @@
+{% load static %}
+
+<header class="section-header">
+  <!-- Top Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo" loading="lazy">
+      </a>
+      <a href="{% url 'help' %}">Help</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTop">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              🌍 English
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Français</a></li>
+              <li><a class="dropdown-item" href="#">العربية</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="currencyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              💵 USD
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">EUR</a></li>
+              <li><a class="dropdown-item" href="#">AED</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">📧 Contact</a></li>
+          <li class="nav-item"><a href="{% url 'help' %}" class="nav-link">❓ Help</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Header -->
+  <section class="header-main bg-white shadow-sm">
+    <div class="container">
+      <div class="row align-items-center py-3">
+        <!-- Category Dropdown -->
+        <div class="col-lg-3 col-md-4">
+          <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle w-100" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bars"></i> Categories
+            </button>
+            <ul class="dropdown-menu w-100">
+              <li><a class="dropdown-item" href="{% url 'store' %}">All Products</a></li>
+              {% for category in links %}
+                <li><a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="col-lg-5 col-md-6">
+          <form action="{% url 'search' %}" method="GET" class="input-group">
+            <input type="text" class="form-control" placeholder="Search for products..." name="keyword" autocomplete="off">
+            <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+
+        <!-- User & Cart Section -->
+        <div class="col-lg-4 col-md-2 d-flex justify-content-end">
+          {% if user.id is None %}
+            <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Sign in</a>
+            <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+          {% else %}
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-dark me-2">👤 {{ user.first_name }}</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+          {% endif %}
+          <a href="{% url 'cart' %}" class="btn btn-outline-warning ms-3 position-relative">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{ cart_count }}
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<!-- Include Bootstrap 5 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
