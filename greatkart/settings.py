@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path, os  # type: ignore
 from decouple import config # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,10 +23,13 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('django-insecure-4@2b#j3f9&!t@+r!9_1l@3we@9', default='GOOD-KEY-4@2b#j3f9&!t@+r!9_1l@3we@9')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool) # True
+# DEBUG = config('DEBUG', default=True, cast=bool) # True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+# greatkart/settings.py {Edited}
+ALLOWED_HOSTS = ['*']  # مؤقتًا للاختبار (استبدلها بالنطاق الرسمي لاحقًا)
+DEBUG = True  # تأكد أنها True أثناء التطوير
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -151,11 +154,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR /'static'
+# STATICFILES_DIRS = [
+#     'greatkart/static',
+# ]
+
+# settings.py {edited}
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR /'static'
-STATICFILES_DIRS = [
-    'greatkart/static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # media files configuration
 MEDIA_URL = '/media/'
