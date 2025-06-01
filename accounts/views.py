@@ -7,6 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from orders.models import Order, OrderProduct
 
+# accounts/views.py
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+
 # Verification email
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string

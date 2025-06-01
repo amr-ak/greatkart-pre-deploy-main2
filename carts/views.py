@@ -185,6 +185,9 @@ def cart(request, total=0, quantity=0, cart_items=None):
         'tax'       : tax,
         'grand_total': grand_total,
     }
+    # carts/views.py
+    if 'cart' not in request.session:
+        request.session['cart'] = {}
     return render(request, 'store/cart.html', context)
 
 
@@ -221,3 +224,5 @@ def store_home(request):
 
 def contact(request):
     return render(request, 'store/contact.html')
+
+
